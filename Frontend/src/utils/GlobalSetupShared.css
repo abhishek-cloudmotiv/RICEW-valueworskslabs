@@ -1,0 +1,47 @@
+/* ===================================================================
+   GlobalSetupShared.css
+   Shared styles for all Global Setup Module components.
+   Extracted from 14 inline <style> blocks to improve render performance.
+   =================================================================== */
+
+/* Spinner animation - used by loading overlays across all components */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Slide-in animation - used by toast/notification messages */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Help modal scrollbar styling */
+.help-modal-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.help-modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+.help-modal-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.help-modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Table row hover - used by RiskIssuesSeverity and CategorySubcategory */
+.config-table tr:hover {
+  background-color: #fcfcfc;
+}

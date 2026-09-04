@@ -1,0 +1,6 @@
+{
+    "tfa.dashboard.gaugeStyle": "classic-donut",
+    "tfa.dashboard.viewMode": "models",
+    "tfa.dashboard.includeSecondaryModels": false,
+    "tfa.status.displayFormat": "used"
+}
