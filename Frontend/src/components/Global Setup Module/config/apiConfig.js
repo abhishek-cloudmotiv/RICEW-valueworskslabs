@@ -29,7 +29,7 @@ const GLOBAL_SETUP_API_CONFIG = {
   CATEGORY_SUBCATEGORY_API_URL: 'https://35j96p30rd.execute-api.ap-south-1.amazonaws.com/New/ricew/categorySubcategory/getRecords',
   RISK_ISSUES_SEVERITY_API_URL: 'https://35j96p30rd.execute-api.ap-south-1.amazonaws.com/New/ricew/riskIssuesSeverity/getRecords',
   EMPLOYMENT_TYPES_API_URL: 'https://tuo1xmg14d.execute-api.ap-south-1.amazonaws.com/New/rice/get/employmentTypes',
-  ORACLE_APPLICATION_PROCESS_STREAM_API_URL: 'https://tuo1xmg14d.execute-api.ap-south-1.amazonaws.com/New/rice/get/oracleApplicationProcessStream',
+  ORACLE_APPLICATION_PROCESS_STREAM_API_URL: 'https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/streamApplication',
   PROCESS_STREAM_ORACLE_APPLICATION_API_URL: 'https://tuo1xmg14d.execute-api.ap-south-1.amazonaws.com/New/rice/get/processStreamOracleApplication',
   PROCESS_STREAM_L0_L1_L2_L3_API_URL: 'https://tuo1xmg14d.execute-api.ap-south-1.amazonaws.com/New/rice/get/processStreamL0L1L2L3'
 };
