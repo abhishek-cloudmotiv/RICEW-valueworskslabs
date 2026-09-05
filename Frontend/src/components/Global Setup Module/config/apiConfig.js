@@ -26,7 +26,7 @@ const GLOBAL_SETUP_API_CONFIG = {
   BILLING_STATUS_API_URL: 'https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/BillingStatusDetails',
   CONFIG_API_URL: 'https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/objectTypes',
   RICEW_STATUS_API_URL: 'https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/ricewStatus',
-  CATEGORY_SUBCATEGORY_API_URL: 'https://35j96p30rd.execute-api.ap-south-1.amazonaws.com/New/ricew/categorySubcategory/getRecords',
+  CATEGORY_SUBCATEGORY_API_URL: 'https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/ActivitySubcategoryDetails',
   RISK_ISSUES_SEVERITY_API_URL: 'https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/RiskIssuesSeverityDetails',
   EMPLOYMENT_TYPES_API_URL: 'https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/EmploymentTypeDetails',
   ORACLE_APPLICATION_PROCESS_STREAM_API_URL: 'https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/streamApplication',

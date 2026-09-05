@@ -59,20 +59,52 @@ const CategorySubcategory = ({ selectedProject }) => {
 
       const result = await response.json();
       const dataArray = Array.isArray(result.data) ? result.data : (Array.isArray(result) ? result : []);
-      const apiData = dataArray.filter(item => item.delete_status !== "true");
+      const apiData = dataArray.filter(item => {
+        const delStat = item.SUB_DELETE_STATUS || item.delete_status;
+        return delStat !== "true" && delStat !== "Y" && delStat !== true;
+      });
+
+      const categoryOrder = [
+        "Functional",
+        "Technical",
+        "Infrastructure and Environment",
+        "Security and Access Control",
+        "Testing",
+        "Cutover and Deployment",
+        "Change Management and Training",
+        "Program Governance",
+        "Compliance and Regulatory",
+        "Support"
+      ];
 
       const sortedData = [...apiData].sort((a, b) => {
-        const idA = parseInt(a.Category_Subcategory_id) || 0;
-        const idB = parseInt(b.Category_Subcategory_id) || 0;
+        const catA = (a.CATEGORY_NAME || a.Category_Name || '').trim();
+        const catB = (b.CATEGORY_NAME || b.Category_Name || '').trim();
+        
+        const indexA = categoryOrder.indexOf(catA);
+        const indexB = categoryOrder.indexOf(catB);
+        
+        if (indexA !== -1 && indexB !== -1) {
+          if (indexA !== indexB) return indexA - indexB;
+        } else if (indexA !== -1) {
+          return -1;
+        } else if (indexB !== -1) {
+          return 1;
+        } else if (catA !== catB) {
+          return catA.localeCompare(catB);
+        }
+
+        const idA = parseInt(a.SUBCATEGORY_ID || a.Category_Subcategory_id) || 0;
+        const idB = parseInt(b.SUBCATEGORY_ID || b.Category_Subcategory_id) || 0;
         return idA - idB;
       });
 
       return sortedData.map((item, index) => ({
         id: index + 1,
-        categoryCode: DOMPurify.sanitize(String(item.Category_Code || '').trim(), sanitizeConfig),
-        category: DOMPurify.sanitize(String(item.Category_Name || '').trim(), sanitizeConfig),
-        subCategoryCode: DOMPurify.sanitize(String(item.Sub_Category_Code || '').trim(), sanitizeConfig),
-        subCategory: DOMPurify.sanitize(String(item.Sub_Category_Name || '').trim(), sanitizeConfig),
+        categoryCode: DOMPurify.sanitize(String(item.CATEGORY_CODE || item.Category_Code || '').trim(), sanitizeConfig),
+        category: DOMPurify.sanitize(String(item.CATEGORY_NAME || item.Category_Name || '').trim(), sanitizeConfig),
+        subCategoryCode: DOMPurify.sanitize(String(item.SUBCATEGORY_CODE || item.Sub_Category_Code || '').trim(), sanitizeConfig),
+        subCategory: DOMPurify.sanitize(String(item.SUBCATEGORY_NAME || item.Sub_Category_Name || '').trim(), sanitizeConfig),
         projectId: DOMPurify.sanitize(String(item.project_id || '').trim(), sanitizeConfig),
       }));
     }
