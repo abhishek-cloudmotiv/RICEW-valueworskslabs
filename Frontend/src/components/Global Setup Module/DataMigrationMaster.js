@@ -6,6 +6,7 @@ import { getIdToken } from '../../utils/cognito-auth';
 import { useSession } from '../../context/SessionContext';
 import SessionExpiredPopup from '../SessionExpiredPopup';
 import Loader from '../../utils/Loader';
+import GLOBAL_SETUP_API_CONFIG from './config/apiConfig';
 
 const DataMigrationMaster = ({ onClose, selectedProject }) => {
   const { handleAuthError } = useSession();
@@ -19,7 +20,7 @@ const DataMigrationMaster = ({ onClose, selectedProject }) => {
       throw new Error('Token not found');
     }
 
-    const response = await fetch('https://ec2450jptj.execute-api.ap-south-1.amazonaws.com/New/rice/get/conversionObjects', {
+    const response = await fetch(GLOBAL_SETUP_API_CONFIG.DATA_MIGRATION_API_URL, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${idToken}`

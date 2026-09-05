@@ -22,9 +22,9 @@ const GeographyTable = ({ onClose, selectedProject, onBackToLanding, onLogout })
 
     return data.map((item, index) => ({
       id: index + 1,
-      geographyId: DOMPurify.sanitize(String(item.list_Of_Geography_id || '').trim(), sanitizeConfig),
-      geographyCode: DOMPurify.sanitize(String(item.geoCode || '').trim(), sanitizeConfig),
-      geographyName: DOMPurify.sanitize(String(item.description || '').trim(), sanitizeConfig),
+      geographyId: DOMPurify.sanitize(String(item.LIST_OF_GEOGRAPHY_ID || item.list_Of_Geography_id || '').trim(), sanitizeConfig),
+      geographyCode: DOMPurify.sanitize(String(item.GEO_CODE || item.geoCode || '').trim(), sanitizeConfig),
+      geographyName: DOMPurify.sanitize(String(item.REGION_NAME || item.description || '').trim(), sanitizeConfig),
       isSaved: true
     }));
   };
@@ -69,8 +69,9 @@ const GeographyTable = ({ onClose, selectedProject, onBackToLanding, onLogout })
 
     if (response.ok) {
       const result = await response.json();
-      if (Array.isArray(result) && result.length > 0) {
-        return validateAndSanitizeData(result);
+      const dataArray = Array.isArray(result) ? result : (result.data || []);
+      if (dataArray.length > 0) {
+        return validateAndSanitizeData(dataArray);
       }
       return [];
     }

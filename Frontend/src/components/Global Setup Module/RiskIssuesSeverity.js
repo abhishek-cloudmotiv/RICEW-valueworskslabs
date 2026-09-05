@@ -59,24 +59,27 @@ const RiskIssuesSeverity = ({ selectedProject }) => {
 
       const result = await response.json();
       const dataArray = Array.isArray(result.data) ? result.data : (Array.isArray(result) ? result : []);
-      const apiData = dataArray.filter(item => item.delete_status !== "true");
+      const apiData = dataArray.filter(item => {
+        const delStat = item.DELETE_STATUS || item.delete_status;
+        return delStat !== "true" && delStat !== "Y" && delStat !== true;
+      });
 
       const sortedData = [...apiData].sort((a, b) => {
-        const idA = parseInt(a.Risk_Issues_Severity_id) || 0;
-        const idB = parseInt(b.Risk_Issues_Severity_id) || 0;
+        const idA = parseInt(a.RISK_ISSUES_SEVERITY_ID || a.Risk_Issues_Severity_id) || 0;
+        const idB = parseInt(b.RISK_ISSUES_SEVERITY_ID || b.Risk_Issues_Severity_id) || 0;
         return idA - idB;
       });
 
       return sortedData.map((item, index) => ({
         id: index + 1,
-        severityCode: DOMPurify.sanitize(String(item.Severity_Code || '').trim(), sanitizeConfig),
-        severity_id: DOMPurify.sanitize(String(item.Risk_Issues_Severity_id || '').trim(), sanitizeConfig),
-        severityLevel: DOMPurify.sanitize(String(item.Severity_Level || '').trim(), sanitizeConfig),
-        definition: DOMPurify.sanitize(String(item.Severity_Definition || '').trim(), sanitizeConfig),
+        severityCode: DOMPurify.sanitize(String(item.SEVERITY_CODE || item.Severity_Code || '').trim(), sanitizeConfig),
+        severity_id: DOMPurify.sanitize(String(item.RISK_ISSUES_SEVERITY_ID || item.Risk_Issues_Severity_id || '').trim(), sanitizeConfig),
+        severityLevel: DOMPurify.sanitize(String(item.SEVERITY_LEVEL || item.Severity_Level || '').trim(), sanitizeConfig),
+        definition: DOMPurify.sanitize(String(item.SEVERITY_DEFINITION || item.Severity_Definition || '').trim(), sanitizeConfig),
         isActive: true,
         projectId: DOMPurify.sanitize(String(item.project_id || '').trim(), sanitizeConfig),
         isNew: false,
-        system_default: DOMPurify.sanitize(String(item.system_default || 'no').trim(), sanitizeConfig)
+        system_default: DOMPurify.sanitize(String(item.SYSTEM_DEFAULT || item.system_default || 'no').trim(), sanitizeConfig)
       }));
     }
   });

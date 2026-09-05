@@ -22,9 +22,12 @@ const RoleDefinitionTable = ({ onClose, selectedProject }) => {
 
     return data.map((item, index) => ({
       id: index + 1,
-      roleTitle: DOMPurify.sanitize(String(item.role_Title || '').trim(), sanitizeConfig),
-      roleDescription: DOMPurify.sanitize(String(item.role_Description || '').trim(), sanitizeConfig),
-      roleDefinitionTableId: item.role_Definition_Table_id || '',
+      roleTitle: DOMPurify.sanitize(String(item.PROJECT_ROLE_TITLE || '').trim(), sanitizeConfig),
+      roleDescription: DOMPurify.sanitize(String(item.PROJECT_ROLE_DESCRIPTION || '').trim(), sanitizeConfig),
+      projectRoleCode: DOMPurify.sanitize(String(item.PROJECT_ROLE_CODE || '').trim(), sanitizeConfig),
+      categoryName: DOMPurify.sanitize(String(item.ROLE_CATEGORY_NAME || '').trim(), sanitizeConfig),
+      roleTypeName: DOMPurify.sanitize(String(item.ROLE_TYPE_NAME || '').trim(), sanitizeConfig),
+      roleDefinitionTableId: item.PROJECT_ROLE_ID || '',
     }));
   };
 
@@ -223,18 +226,27 @@ const RoleDefinitionTable = ({ onClose, selectedProject }) => {
         <Table stickyHeader sx={{ minWidth: '800px' }}>
           <TableHead>
             <TableRow sx={{ backgroundColor: '#f8f9fa' }}>
-              <TableCell sx={{ fontWeight: 'bold', borderBottom: '1px solid #dee2e6', padding: '8px 12px', fontSize: '15px', width: '25%' }}>
-                Role Title
+              <TableCell sx={{ fontWeight: 'bold', borderBottom: '1px solid #dee2e6', padding: '8px 12px', fontSize: '15px', width: '20%' }}>
+                Project Role Title
               </TableCell>
-              <TableCell sx={{ fontWeight: 'bold', borderBottom: '1px solid #dee2e6', padding: '8px 12px', fontSize: '15px', width: '75%' }}>
-                Role Description
+              <TableCell sx={{ fontWeight: 'bold', borderBottom: '1px solid #dee2e6', padding: '8px 12px', fontSize: '15px', width: '15%' }}>
+                Project Role Code
+              </TableCell>
+              <TableCell sx={{ fontWeight: 'bold', borderBottom: '1px solid #dee2e6', padding: '8px 12px', fontSize: '15px', width: '35%' }}>
+                Project Role Description
+              </TableCell>
+              <TableCell sx={{ fontWeight: 'bold', borderBottom: '1px solid #dee2e6', padding: '8px 12px', fontSize: '15px', width: '15%' }}>
+                Category Name
+              </TableCell>
+              <TableCell sx={{ fontWeight: 'bold', borderBottom: '1px solid #dee2e6', padding: '8px 12px', fontSize: '15px', width: '15%' }}>
+                Role Type Name
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {roleDefinitionsData.length === 0 && !loading ? (
               <TableRow>
-                <TableCell colSpan={2} sx={{ textAlign: 'center', padding: '2rem', color: '#6b7280' }}>
+                <TableCell colSpan={5} sx={{ textAlign: 'center', padding: '2rem', color: '#6b7280' }}>
                   No role definitions found.
                 </TableCell>
               </TableRow>
@@ -254,8 +266,23 @@ const RoleDefinitionTable = ({ onClose, selectedProject }) => {
                     </div>
                   </TableCell>
                   <TableCell sx={{ padding: '12px', verticalAlign: 'top', borderBottom: '1px solid #dee2e6' }}>
+                    <div style={{ fontSize: '14px', color: '#333', minHeight: '40px', display: 'flex', alignItems: 'center' }}>
+                      {row.projectRoleCode || '-'}
+                    </div>
+                  </TableCell>
+                  <TableCell sx={{ padding: '12px', verticalAlign: 'top', borderBottom: '1px solid #dee2e6' }}>
                     <div style={{ fontSize: '14px', color: '#333', wordWrap: 'break-word', whiteSpace: 'pre-wrap', lineHeight: '1.4' }}>
                       {row.roleDescription || '-'}
+                    </div>
+                  </TableCell>
+                  <TableCell sx={{ padding: '12px', verticalAlign: 'top', borderBottom: '1px solid #dee2e6' }}>
+                    <div style={{ fontSize: '14px', color: '#333', minHeight: '40px', display: 'flex', alignItems: 'center' }}>
+                      {row.categoryName || '-'}
+                    </div>
+                  </TableCell>
+                  <TableCell sx={{ padding: '12px', verticalAlign: 'top', borderBottom: '1px solid #dee2e6' }}>
+                    <div style={{ fontSize: '14px', color: '#333', minHeight: '40px', display: 'flex', alignItems: 'center' }}>
+                      {row.roleTypeName || '-'}
                     </div>
                   </TableCell>
                 </TableRow>

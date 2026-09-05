@@ -39,8 +39,8 @@ const EmploymentType = ({ onClose, selectedProject }) => {
       const descKey = Object.keys(item).find(k => k.toLowerCase().includes('desc') || k.toLowerCase().includes('def')) || 'description';
       return {
         id: index + 1,
-        typeName: DOMPurify.sanitize(String(item[typeKey] || item.employment_type || item.employment_type_name || item.name || '').trim(), sanitizeConfig),
-        description: DOMPurify.sanitize(String(item[descKey] || item.description || item.definition || '').trim(), sanitizeConfig),
+        typeName: DOMPurify.sanitize(String(item.EMPLOYMENT_TYPE || item[typeKey] || item.employment_type || item.employment_type_name || item.name || '').trim(), sanitizeConfig),
+        description: DOMPurify.sanitize(String(item.EMPLOYMENT_TYPE_DESCRIPTION || item[descKey] || item.description || item.definition || '').trim(), sanitizeConfig),
         isSaved: true
       };
     });

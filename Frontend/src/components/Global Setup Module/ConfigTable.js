@@ -24,13 +24,13 @@ const ConfigTable = ({ onClose, selectedProject, setUnsavedChangesChecker }) => 
     if (!Array.isArray(data)) return [];
     return data.map((item, index) => ({
       id: index + 1,
-      objectTypeId: DOMPurify.sanitize(String(item.objectTypeId || item.oTypeId || '').trim(), { ALLOWED_TAGS: [] }),
+      objectTypeId: DOMPurify.sanitize(String(item.OBJECT_TYPE_ID || item.objectTypeId || item.oTypeId || '').trim(), { ALLOWED_TAGS: [] }),
       m_obj_type: item.m_obj_type || null,
-      objectCode: DOMPurify.sanitize(String(item.objectCode || '').trim(), { ALLOWED_TAGS: [] }),
-      objectType: DOMPurify.sanitize(String(item.objectType || '').trim(), { ALLOWED_TAGS: [] }),
-      description: DOMPurify.sanitize(String(item.description || '').trim(), { ALLOWED_TAGS: [] }),
-      valueType: item.valueType || 'System',
-      object_type_id: item.object_type_id || ''
+      objectCode: DOMPurify.sanitize(String(item.OBJECT_CODE || item.objectCode || '').trim(), { ALLOWED_TAGS: [] }),
+      objectType: DOMPurify.sanitize(String(item.OBJECT_TYPE || item.objectType || '').trim(), { ALLOWED_TAGS: [] }),
+      description: DOMPurify.sanitize(String(item.DESCRIPTION || item.description || '').trim(), { ALLOWED_TAGS: [] }),
+      valueType: item.VALUE_TYPE || item.valueType || 'System',
+      object_type_id: item.OBJECT_TYPE_ID || item.object_type_id || ''
     }));
   };
 
@@ -86,7 +86,7 @@ const ConfigTable = ({ onClose, selectedProject, setUnsavedChangesChecker }) => 
       }
 
       const filteredItems = rawItems.filter(item =>
-        item.deleteStatus !== "true" && item.delete_status !== "true" && item.delete_status !== "yes"
+        item.DELETE_STATUS !== "Y" && item.deleteStatus !== "true" && item.delete_status !== "true" && item.delete_status !== "yes"
       );
 
       return validateAndSanitizeData(filteredItems);
@@ -220,10 +220,9 @@ const ConfigTable = ({ onClose, selectedProject, setUnsavedChangesChecker }) => 
           <table className="config-table" style={{ fontSize: '15px', width: '100%', tableLayout: 'fixed', borderCollapse: 'collapse' }}>
             <thead>
               <tr>
-                <th style={{ padding: '12px', fontSize: '15px', width: '25%', textAlign: 'left', fontWeight: '600' }}>Object Type ID</th>
-                <th style={{ padding: '12px', fontSize: '15px', width: '25%', textAlign: 'left', fontWeight: '600' }}>Object Type</th>
-                <th style={{ padding: '12px', fontSize: '15px', width: '25%', textAlign: 'left', fontWeight: '600' }}>Object Name</th>
-                <th style={{ padding: '12px', fontSize: '15px', width: '25%', textAlign: 'left', fontWeight: '600' }}>Description</th>
+                <th style={{ padding: '12px', fontSize: '15px', width: '30%', textAlign: 'left', fontWeight: '600' }}>Object Type ID</th>
+                <th style={{ padding: '12px', fontSize: '15px', width: '30%', textAlign: 'left', fontWeight: '600' }}>Object Name</th>
+                <th style={{ padding: '12px', fontSize: '15px', width: '40%', textAlign: 'left', fontWeight: '600' }}>Description</th>
               </tr>
             </thead>
             <tbody>
@@ -236,22 +235,17 @@ const ConfigTable = ({ onClose, selectedProject, setUnsavedChangesChecker }) => 
                 })
                 .map((item) => (
                   <tr key={item.id} style={{ borderBottom: '1px solid #edf2f7' }}>
-                    <td style={{ padding: '12px', verticalAlign: 'middle', width: '25%', color: '#333' }}>
-                      <div style={{ fontSize: '14px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {item.objectTypeId}
-                      </div>
-                    </td>
-                    <td style={{ padding: '12px', verticalAlign: 'middle', width: '25%', color: '#333' }}>
-                      <div style={{ fontSize: '14px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {item.objectType}
-                      </div>
-                    </td>
-                    <td style={{ padding: '12px', verticalAlign: 'middle', width: '25%', color: '#333' }}>
+                    <td style={{ padding: '12px', verticalAlign: 'middle', width: '30%', color: '#333' }}>
                       <div style={{ fontSize: '14px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {item.objectCode}
                       </div>
                     </td>
-                    <td style={{ padding: '12px', verticalAlign: 'middle', width: '25%', color: '#333' }}>
+                    <td style={{ padding: '12px', verticalAlign: 'middle', width: '30%', color: '#333' }}>
+                      <div style={{ fontSize: '14px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {item.objectType}
+                      </div>
+                    </td>
+                    <td style={{ padding: '12px', verticalAlign: 'middle', width: '40%', color: '#333' }}>
                       <div style={{ fontSize: '14px', lineHeight: '1.5' }}>
                         {item.description}
                       </div>

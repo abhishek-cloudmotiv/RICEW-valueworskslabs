@@ -389,7 +389,7 @@ const MasterListofCountries = ({ onClose, selectedProject, onBackToLanding, onLo
   // Load geography mapping from API
   const loadGeographyMapping = async (idToken, headers) => {
     try {
-      const response = await fetch('https://ec2450jptj.execute-api.ap-south-1.amazonaws.com/New/rice/get/listOfGeography', {
+      const response = await fetch('https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/geographies', {
         headers: headers
       });
 
@@ -400,8 +400,8 @@ const MasterListofCountries = ({ onClose, selectedProject, onBackToLanding, onLo
         if (regionsArray.length > 0) {
           const geoMapping = {};
           regionsArray.forEach(reg => {
-            const id = reg.list_Of_Geography_id?.S || reg.list_Of_Geography_id;
-            const code = reg.geoCode?.S || reg.geoCode;
+            const id = reg.LIST_OF_GEOGRAPHY_ID || reg.list_Of_Geography_id?.S || reg.list_Of_Geography_id;
+            const code = reg.GEO_CODE || reg.geoCode?.S || reg.geoCode;
             if (id && code) {
               geoMapping[id] = code;
             }
@@ -443,7 +443,7 @@ const MasterListofCountries = ({ onClose, selectedProject, onBackToLanding, onLo
       }
 
       console.log('Fetching master countries...');
-      const response = await fetch('https://ec2450jptj.execute-api.ap-south-1.amazonaws.com/New/rice/get/trueMasterCountries', {
+      const response = await fetch('https://n5i1mqmg8a.execute-api.ap-south-1.amazonaws.com/GLOBAL_SETUP_MODULE/get/countries', {
         headers: headers
       });
 
@@ -475,15 +475,15 @@ const MasterListofCountries = ({ onClose, selectedProject, onBackToLanding, onLo
         const safeString = (val) => DOMPurify.sanitize(String(val || '').trim(), sanitizeConfig);
 
         const transformedData = countriesArray.map((item, index) => {
-          const countryId = safeString(item.list_Of_Countrie_id?.S || item.list_Of_Countrie_id);
-          const countryCode = safeString(item.Code?.S || item.Code);
-          const countryName = safeString(item.Country_Name?.S || item.Country_Name);
-          const geocodeId = safeString(item.GEOCODE?.S || item.GEOCODE);
+          const countryId = safeString(item.LIST_OF_COUNTRIES_ID || item.list_Of_Countrie_id?.S || item.list_Of_Countrie_id);
+          const countryCode = safeString(item.COUNTRY_CODE || item.Code?.S || item.Code);
+          const countryName = safeString(item.COUNTRY_NAME || item.Country_Name?.S || item.Country_Name);
+          const geocodeId = safeString(item.LIST_OF_GEOGRAPHY_ID || item.GEOCODE?.S || item.GEOCODE);
           // Map the GEOCODE ID to the actual geoCode if mapping exists
-          const geographyCode = geoMapping[geocodeId] || geocodeId;
-          const phoneCode = safeString(item.PhoneCode?.S || item.PhoneCode);
-          const currencyName = safeString(item.Currency_Name?.S || item.Currency_Name);
-          const currencyCode = safeString(item.Currency_Code?.S || item.Currency_Code);
+          const geographyCode = safeString(item.GEO_CODE) || geoMapping[geocodeId] || geocodeId;
+          const phoneCode = safeString(item.PHONE_CODE || item.PhoneCode?.S || item.PhoneCode);
+          const currencyName = safeString(item.CURRENCY_NAME || item.Currency_Name?.S || item.Currency_Name);
+          const currencyCode = safeString(item.CURRENCY_CODE || item.Currency_Code?.S || item.Currency_Code);
 
           return {
             id: index + 1,
@@ -499,9 +499,18 @@ const MasterListofCountries = ({ onClose, selectedProject, onBackToLanding, onLo
 
         const validData = transformedData.filter(item => item.countryName && item.countryName !== 'N/A');
         validData.sort((a, b) => {
-          const idA = parseInt(a.countryId) || 0;
-          const idB = parseInt(b.countryId) || 0;
-          return idA - idB;
+          const geoA = (a.geographyCode || '').toLowerCase();
+          const geoB = (b.geographyCode || '').toLowerCase();
+          if (geoA < geoB) return -1;
+          if (geoA > geoB) return 1;
+          
+          // Secondary sort by country name
+          const nameA = (a.countryName || '').toLowerCase();
+          const nameB = (b.countryName || '').toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          
+          return 0;
         });
 
         setData(validData);

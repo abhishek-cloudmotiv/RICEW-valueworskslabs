@@ -25,15 +25,15 @@ const IndustriesTable = ({ onClose, selectedProject }) => {
     return data.map((item, index) => ({
       id: index + 1,
       listOfIndustriesId: item.list_Of_Industries_id?.S || item.list_Of_Industries_id || '',
-      industryId: DOMPurify.sanitize(String(item.Industry_Id?.S || item.Industry_Id || '').trim(), sanitizeConfig),
-      industryCode: DOMPurify.sanitize(String(item.Industry_Code?.S || item.Industry_Code || '').trim(), sanitizeConfig),
-      industryName: DOMPurify.sanitize(String(item.Industry_Name?.S || item.Industry_Name || '').trim(), sanitizeConfig),
-      sectorId: DOMPurify.sanitize(String(item.Sector_Id?.S || item.Sector_Id || '').trim(), sanitizeConfig),
-      sectorCode: DOMPurify.sanitize(String(item.Sector_Code?.S || item.Sector_Code || '').trim(), sanitizeConfig),
-      sectorName: DOMPurify.sanitize(String(item.Sector_Name?.S || item.Sector_Name || '').trim(), sanitizeConfig),
-      subSectorId: DOMPurify.sanitize(String(item.Subsector_Id?.S || item.Subsector_Id || '').trim(), sanitizeConfig),
-      subSectorCode: DOMPurify.sanitize(String(item.Subsector_Code?.S || item.Subsector_Code || '').trim(), sanitizeConfig),
-      subSectorName: DOMPurify.sanitize(String(item.Subsector_Name?.S || item.Subsector_Name || '').trim(), sanitizeConfig),
+      industryId: DOMPurify.sanitize(String(item.INDUSTRY_DISPLAY_ID || item.Industry_Id?.S || item.Industry_Id || '').trim(), sanitizeConfig),
+      industryCode: DOMPurify.sanitize(String(item.INDUSTRY_CODE || item.Industry_Code?.S || item.Industry_Code || '').trim(), sanitizeConfig),
+      industryName: DOMPurify.sanitize(String(item.INDUSTRY_NAME || item.Industry_Name?.S || item.Industry_Name || '').trim(), sanitizeConfig),
+      sectorId: DOMPurify.sanitize(String(item.SECTOR_DISPLAY_ID || item.Sector_Id?.S || item.Sector_Id || '').trim(), sanitizeConfig),
+      sectorCode: DOMPurify.sanitize(String(item.SECTOR_CODE || item.Sector_Code?.S || item.Sector_Code || '').trim(), sanitizeConfig),
+      sectorName: DOMPurify.sanitize(String(item.SECTOR_NAME || item.Sector_Name?.S || item.Sector_Name || '').trim(), sanitizeConfig),
+      subSectorId: DOMPurify.sanitize(String(item.SUB_SECTOR_DISPLAY_ID || item.Subsector_Id?.S || item.Subsector_Id || '').trim(), sanitizeConfig),
+      subSectorCode: DOMPurify.sanitize(String(item.SUB_SECTOR_CODE || item.Subsector_Code?.S || item.Subsector_Code || '').trim(), sanitizeConfig),
+      subSectorName: DOMPurify.sanitize(String(item.SUB_SECTOR_NAME || item.Subsector_Name?.S || item.Subsector_Name || '').trim(), sanitizeConfig),
     }));
   };
 

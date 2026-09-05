@@ -19,10 +19,10 @@ const OnboardingStatusTable = ({ onClose, selectedProject, onBackToLanding, onLo
     if (!Array.isArray(data)) return [];
     return data.map((item, index) => ({
       id: index + 1,
-      statusName: DOMPurify.sanitize(String(item.onboarding_status || '').trim(), sanitizeConfig),
-      statusTypeId: DOMPurify.sanitize(String(item.Onboarding_Status_display_id || '').trim(), sanitizeConfig),
-      description: DOMPurify.sanitize(String(item.onboarding_status_description || '').trim(), sanitizeConfig),
-      onboardingStatusId: item.onboarding_status_id || item.Onboarding_Status_Definition_id || '',
+      statusName: DOMPurify.sanitize(String(item.ONBOARDING_STATUS || item.onboarding_status || '').trim(), sanitizeConfig),
+      statusTypeId: DOMPurify.sanitize(String(item.ONBOARDING_STATUS_DISPLAY_ID || item.Onboarding_Status_display_id || '').trim(), sanitizeConfig),
+      description: DOMPurify.sanitize(String(item.ONBOARDING_STATUS_DESCRIPTION || item.onboarding_status_description || '').trim(), sanitizeConfig),
+      onboardingStatusId: item.ONBOARDING_STATUS_ID || item.onboarding_status_id || item.Onboarding_Status_Definition_id || '',
     }));
   };
 

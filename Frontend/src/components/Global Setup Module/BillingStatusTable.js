@@ -19,8 +19,8 @@ const BillingStatusTable = ({ onClose, selectedProject, onBackToLanding, onLogou
     if (!Array.isArray(data)) return [];
     return data.map((item, index) => ({
       id: index + 1,
-      statusName: DOMPurify.sanitize(String(item.billing_status || '').trim(), sanitizeConfig),
-      description: DOMPurify.sanitize(String(item.description || '').trim(), sanitizeConfig),
+      statusName: DOMPurify.sanitize(String(item.BILLING_STATUS || item.billing_status || '').trim(), sanitizeConfig),
+      description: DOMPurify.sanitize(String(item.DESCRIPTION || item.description || '').trim(), sanitizeConfig),
     }));
   };
 

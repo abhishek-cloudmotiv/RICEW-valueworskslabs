@@ -26,10 +26,10 @@ const RicewStatusTable = ({ onClose, selectedProject, setUnsavedChangesChecker }
     if (!Array.isArray(data)) return [];
     return data.map((item, index) => ({
       id: index + 1,
-      statusId: DOMPurify.sanitize(String(item.Status_Code || '').trim(), sanitizeConfig),
-      status_id: item.RICEW_Status_Id || null,
-      statusName: DOMPurify.sanitize(String(item.Status_Name || '').trim(), sanitizeConfig),
-      description: DOMPurify.sanitize(String(item.Status_Description || '').trim(), sanitizeConfig)
+      statusId: DOMPurify.sanitize(String(item.STATUS_CODE || item.Status_Code || '').trim(), sanitizeConfig),
+      status_id: item.RICEW_STATUS_ID || item.RICEW_Status_Id || null,
+      statusName: DOMPurify.sanitize(String(item.STATUS_NAME || item.Status_Name || '').trim(), sanitizeConfig),
+      description: DOMPurify.sanitize(String(item.STATUS_DESCRIPTION || item.Status_Description || '').trim(), sanitizeConfig)
     }));
   };
 
@@ -77,7 +77,10 @@ const RicewStatusTable = ({ onClose, selectedProject, setUnsavedChangesChecker }
 
       const result = await response.json();
       const dataArray = Array.isArray(result) ? result : (result.data || []);
-      const apiData = dataArray.filter(item => item.delete_status !== "true");
+      const apiData = dataArray.filter(item => {
+        const deleteStatus = item.DELETE_STATUS || item.delete_status;
+        return deleteStatus !== "true" && deleteStatus !== "Y" && deleteStatus !== true;
+      });
 
       return validateAndSanitizeData(apiData);
     }

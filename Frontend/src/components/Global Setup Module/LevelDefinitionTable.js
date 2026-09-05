@@ -34,12 +34,12 @@ const LevelDefinitionTable = ({ onClose, selectedProject, onBackToLanding, onLog
   const validateAndSanitizeData = (data) => {
     if (!Array.isArray(data)) return [];
     return data.map((item, index) => ({
-      id: item.Level_Definition_id || index + 1,
-      levelCode: DOMPurify.sanitize(String(item.Level_Code || '').trim(), { ALLOWED_TAGS: [] }),
-      levelShortCode: DOMPurify.sanitize(String(item.Level_Short_Code || '').trim(), { ALLOWED_TAGS: [] }),
-      designationTitle: DOMPurify.sanitize(String(item.designation || '').trim(), { ALLOWED_TAGS: [] }),
-      roleSummary: DOMPurify.sanitize(String(item.role_summary || '').trim(), { ALLOWED_TAGS: [] }),
-      displayOrder: item.display_order || '',
+      id: item.RESOURCE_LEVEL_ID || item.Level_Definition_id || index + 1,
+      levelCode: DOMPurify.sanitize(String(item.RESOURCE_LEVEL_CODE || item.Level_Code || '').trim(), { ALLOWED_TAGS: [] }),
+      levelShortCode: DOMPurify.sanitize(String(item.RESOURCE_LEVEL_SHORT_CODE || item.Level_Short_Code || '').trim(), { ALLOWED_TAGS: [] }),
+      designationTitle: DOMPurify.sanitize(String(item.RESOURCE_LEVEL_TITLE || item.designation || '').trim(), { ALLOWED_TAGS: [] }),
+      roleSummary: DOMPurify.sanitize(String(item.RESOURCE_LEVEL_DESCRIPTION || item.role_summary || '').trim(), { ALLOWED_TAGS: [] }),
+      displayOrder: item.RESOURCE_LEVEL_ID || item.display_order || index + 1,
     }));
   };
 

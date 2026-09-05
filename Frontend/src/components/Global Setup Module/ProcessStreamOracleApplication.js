@@ -28,9 +28,10 @@ const ProcessStreamOracleApplication = ({ onClose, selectedProject }) => {
 
     const sanitized = data.map(item => ({
       stream_module_map_id: item.STREAM_MODULE_MAP_ID || null,
-      module_id: item.MODULE_ID || null,
+      module_id: item.ORACLE_MODULE_ID || item.MODULE_ID || null,
       module_code: DOMPurify.sanitize(String(item.MODULE_CODE || '').trim(), sanitizeConfig),
       oracle_module: DOMPurify.sanitize(String(item.MODULE_NAME || '').trim(), sanitizeConfig),
+      module_desc: DOMPurify.sanitize(String(item.MODULE_DESC || '').trim(), sanitizeConfig),
       process_stream_id: item.PROCESS_STREAM_ID || null,
       process_stream: DOMPurify.sanitize(String(item.PROCESS_STREAM_NAME || '').trim(), sanitizeConfig),
       process_stream_code: DOMPurify.sanitize(String(item.PROCESS_STREAM_CODE || '').trim(), sanitizeConfig),

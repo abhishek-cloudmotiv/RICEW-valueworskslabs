@@ -20,9 +20,9 @@ const LocationDefinitionTable = ({ onClose, selectedProject, onBackToLanding, on
     if (!Array.isArray(data)) return [];
     return data.map((item, index) => ({
       id: index + 1,
-      locationTypeId: DOMPurify.sanitize(String(item.LD_Display_id || '').trim(), sanitizeConfig),
-      locationName: DOMPurify.sanitize(String(item.location || '').trim(), sanitizeConfig),
-      description: DOMPurify.sanitize(String(item.definition || '').trim(), sanitizeConfig),
+      locationTypeId: DOMPurify.sanitize(String(item.LD_DISPLAY_ID || item.LD_Display_id || '').trim(), sanitizeConfig),
+      locationName: DOMPurify.sanitize(String(item.LOCATION || item.location || '').trim(), sanitizeConfig),
+      description: DOMPurify.sanitize(String(item.DEFINITION || item.definition || '').trim(), sanitizeConfig),
     }));
   };
 
